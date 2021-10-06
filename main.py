@@ -1,8 +1,10 @@
-import methods
+from opz import OPZ
 
 if __name__ == "__main__":
-    opz = methods.OPZ()
-    string = input()
+    opz = OPZ()
+    with open("input.txt") as file:
+        string = file.read().strip()
+
     result = opz.calculate(string)
 
-    print(result)
+    print(round(result, 4))

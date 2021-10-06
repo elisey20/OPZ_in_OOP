@@ -1,3 +1,6 @@
+import operations
+
+
 class OPZ:
     __vent = []
     __stack = []
@@ -11,7 +14,7 @@ class OPZ:
                 self.__vent.append(self.__stack.pop())
             self.__stack.append('*')
         else:
-            while len(self.__stack) != 0 and (self.__stack[-1] == '/' or '*'):
+            while len(self.__stack) != 0 and (self.__stack[-1] == '/' or self.__stack[-1] == '*'):
                 self.__vent.append(self.__stack.pop())
             self.__stack.append(symbol)
 
