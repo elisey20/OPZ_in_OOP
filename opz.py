@@ -21,8 +21,10 @@ class OPZ:
                 break
         self.__stack.append(symbol)
 
-    def calculate(self, string: str):
-        print("[INFO] Начался расчёт выражения с помощью ОПЗ...")
+    # flag - вывод сообщений
+    def calculate(self, string: str, messages=True) -> float:
+        if messages:
+            print("[INFO] Начался расчёт выражения с помощью ОПЗ...")
 
         flag = False
         for item in string:
@@ -50,7 +52,6 @@ class OPZ:
         fstack = []
         operations = self.__operations.get_operations()
 
-        print(self.__vent)
         for item in self.__vent:
             if item.isdigit():
                 fstack.append(float(item))
@@ -60,5 +61,6 @@ class OPZ:
                 position = self.__symbols.index(item)
                 fstack[-1] = operations[position].calc(fstack[-1], temp)
 
-        print("[INFO] Расчёт выражения с помощью ОПЗ окончен")
-        return fstack[-1]
+        if messages:
+            print("[INFO] Расчёт выражения с помощью ОПЗ окончен")
+        return round(fstack[-1], 4)

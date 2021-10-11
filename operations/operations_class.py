@@ -2,6 +2,7 @@ from operations.multiplication import Multiplication
 from operations.division import Division
 from operations.addition import Addition
 from operations.subtraction import Subtraction
+from operations.other_operations import *
 
 
 class Operations:
@@ -10,7 +11,8 @@ class Operations:
         приоритет задается более большим значением).
         По умолчанию / = 3, * = 2, + = - = 1 """
     __operations = [[Division(), 3], [Multiplication(), 2],
-                    [Addition(), 1], [Subtraction(), 1]]
+                    [Addition(), 1], [Subtraction(), 1],
+                    [Row(), 4]]
 
     def get_priority(self):
         result = []
