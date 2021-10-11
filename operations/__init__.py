@@ -1,2 +1,1 @@
-from addition import Addition
-
+from operations.operations_class import Operations

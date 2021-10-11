@@ -1,6 +1,9 @@
-from binary_operation_behavior import BOB
+from operations.binary_operation_behavior import BOB
 
 
 class Multiplication(BOB):
-    def _calc(self):
-        pass
+    def calc(self, first: float, second: float):
+        return first * second
+
+    def get_symbol(self):
+        return '*'

@@ -1,24 +1,27 @@
-import operations
+from operations import Operations
 
 
 class OPZ:
     __vent = []
     __stack = []
     __flag_bracket = []
+    __operations = Operations()
+
+    # получаем все символы операций, которые имеем, а также их приоритет
+    __symbols = __operations.get_symbols()
+    __symbols_priority = __operations.get_priority()
 
     def __go_to_stack(self, symbol):
-        if symbol == '/':
-            self.__stack.append('/')
-        elif symbol == '*':
-            while len(self.__stack) != 0 and self.__stack[-1] == '/':
+        position = self.__symbols.index(symbol)
+        priority = self.__symbols_priority[position]
+        while len(self.__stack) != 0:
+            if self.__symbols_priority[self.__symbols.index(self.__stack[-1])] > priority:
                 self.__vent.append(self.__stack.pop())
-            self.__stack.append('*')
-        else:
-            while len(self.__stack) != 0 and (self.__stack[-1] == '/' or self.__stack[-1] == '*'):
-                self.__vent.append(self.__stack.pop())
-            self.__stack.append(symbol)
+            else:
+                break
+        self.__stack.append(symbol)
 
-    def calculate(self, string):
+    def calculate(self, string: str):
         print("[INFO] Начался расчёт выражения с помощью ОПЗ...")
 
         flag = False
@@ -29,7 +32,7 @@ class OPZ:
                 else:
                     self.__vent.append(item)
                     flag = True
-            elif item == '/' or item == '*' or item == '-' or item == '+':
+            elif item in self.__symbols:
                 self.__go_to_stack(item)
                 flag = False
             elif item == '(':
@@ -45,6 +48,7 @@ class OPZ:
             self.__vent.append(self.__stack.pop())
 
         fstack = []
+        operations = self.__operations.get_operations()
 
         print(self.__vent)
         for item in self.__vent:
@@ -53,14 +57,8 @@ class OPZ:
             else:
                 temp = fstack.pop()
 
-                if item == '*':
-                    fstack[-1] *= temp
-                elif item == '+':
-                    fstack[-1] += temp
-                elif item == '-':
-                    fstack[-1] -= temp
-                elif item == '/':
-                    fstack[-1] /= temp
+                position = self.__symbols.index(item)
+                fstack[-1] = operations[position].calc(fstack[-1], temp)
 
         print("[INFO] Расчёт выражения с помощью ОПЗ окончен")
         return fstack[-1]
